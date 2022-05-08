@@ -1,0 +1,507 @@
+WindowManager:
+    FormLogin:
+        id: loginform
+    FormSignup:
+        id: signupform
+    FormMain:
+        id: mainform
+    FormShares:
+        id: sharesform
+        
+<FormLogin>:
+    name: "login"
+    MDFloatLayout:
+        md_bg_color: 1, 1, 1, 1
+        Image:  
+            source: "logo.jpg"
+            pos_hint: {"y" : .25 }
+        MDLabel:
+            text: "Log In"
+            post_hint: {"center_x": .5, "center_y": .5 }
+            halign: "center"
+            font_size: "40sp"
+            theme_text_color: "Custom"
+            text_color: 60/255, 43/255, 117/255, 1
+        MDFloatLayout:
+            size_hint: .85, .08
+            pos_hint: {"center_x": .5, "center_y": .38}
+            MDTextFieldRound:
+                id: login_user
+                hint_text: "Username"
+                icon_left: "account"
+                size_hint: 0.87, 0.9
+                pos_hint: {"center_x": .5, "center_y": .5}
+                normal_color: 238/255, 238/255, 238/255, 1
+                color_active: 238/255, 238/255, 238/255, 1
+                multiline: False
+                foreground_color: 96/255, 74/255, 215/255, 1
+                background_color: 0, 0, 0, 0
+                padding: 15
+                font_size: "18sp"
+        MDFloatLayout:
+            size_hint: .85, .08
+            pos_hint: {"center_x": .5, "center_y": .28}
+            MDTextFieldRound:
+                id: login_password
+                hint_text: "Password"
+                icon_left: "lock"
+                password: True
+                size_hint: 0.87, 0.9
+                pos_hint: {"center_x": .5, "center_y": .5}
+                normal_color: 238/255, 238/255, 238/255, 1
+                color_active: 238/255, 238/255, 238/255, 1
+                multiline: False
+                foreground_color: 96/255, 74/255, 215/255, 1
+                background_color: 0, 0, 0, 0
+                padding: 15
+                font_size: "18sp"
+        MDTextButton:
+            text: "Forget your password?"
+            theme_text_color: "Custom"
+            text_color: 246/255, 135/255, 177/255, 1
+            pos_hint: {"center_x": .5, "center_y": .21}
+        Button:
+            text: "Sign In"
+            font_size: "20sp"
+            size_hint: .5, .08
+            theme_text_color: "Custom"
+            pos_hint: {"center_x": .5, "center_y": .12}
+            background_color: 0, 0, 0, 0
+            canvas.before:
+                Color:
+                    rgb: 246/255, 135/255, 177/255, 1
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [23]
+            on_release: root.login()
+        MDTextButton:
+            text: "Don't have an account [color=#f687b1]Sign Up[/color]"
+            markup: True
+            theme_text_color: "Custom"
+            pos_hint: {"center_x": .5, "center_y": .05}
+            on_release: 
+                app.root.current = "signup"
+                root.manager.transition.direction = "left"         
+
+<FormSignup>:
+    name: "signup"
+
+    MDFloatLayout:
+        id: formsignup
+        md_bg_color: 1, 1, 1, 1
+        Image:  
+            source: "logo.jpg"
+            pos_hint: {"y" : .25 }
+        MDLabel:
+            text: "Create Account"
+            post_hint: {"center_x": .5, "center_y": .5 }
+            halign: "center"
+            font_size: "40sp"
+            theme_text_color: "Custom"
+            text_color: 60/255, 43/255, 117/255, 1
+        MDFloatLayout:
+            size_hint: .85, .08
+            pos_hint: {"center_x": .5, "center_y": .42}
+            MDTextFieldRound:
+                id: signup_user
+                hint_text: "Username"
+                icon_left: "account"
+                size_hint: 0.87, 0.9
+                pos_hint: {"center_x": .5, "center_y": .5}
+                normal_color: 238/255, 238/255, 238/255, 1
+                color_active: 238/255, 238/255, 238/255, 1
+                multiline: False
+                foreground_color: 96/255, 74/255, 215/255, 1
+                background_color: 0, 0, 0, 0
+                padding: 15
+                font_size: "18sp"
+        MDFloatLayout:
+            size_hint: .85, .08
+            pos_hint: {"center_x": .5, "center_y": .32}
+            MDTextFieldRound:
+                id: signup_password
+                hint_text: "Password"
+                icon_left: "lock"
+                password: True
+                size_hint: 0.87, 0.9
+                pos_hint: {"center_x": .5, "center_y": .5}
+                normal_color: 238/255, 238/255, 238/255, 1
+                color_active: 238/255, 238/255, 238/255, 1
+                multiline: False
+                foreground_color: 96/255, 74/255, 215/255, 1
+                background_color: 0, 0, 0, 0
+                padding: 15
+                font_size: "18sp"
+        MDFloatLayout:
+            size_hint: .85, .08
+            pos_hint: {"center_x": .5, "center_y": .22}
+            MDTextFieldRound:
+                id: signup_confirmpassword
+                hint_text: "Confirm-password"
+                icon_left: "lock"
+                password: True
+                size_hint: 0.87, 0.9
+                pos_hint: {"center_x": .5, "center_y": .5}
+                normal_color: 238/255, 238/255, 238/255, 1
+                color_active: 238/255, 238/255, 238/255, 1
+                multiline: False
+                foreground_color: 96/255, 74/255, 215/255, 1
+                background_color: 0, 0, 0, 0
+                padding: 15
+                font_size: "18sp"
+        Button:
+            text: "Sign Up"
+            font_size: "20sp"
+            size_hint: .5, .08
+            theme_text_color: "Custom"
+            pos_hint: {"center_x": .5, "center_y": .12}
+            background_color: 0, 0, 0, 0
+            canvas.before:
+                Color:
+                    rgb: 246/255, 135/255, 177/255, 1
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [23]
+            on_release: root.signup()
+        MDTextButton:
+            text: "Back to [color=#f687b1]Sign In[/color]"
+            markup: True
+            theme_text_color: "Custom"
+            pos_hint: {"center_x": .5, "center_y": .05}
+            on_release: 
+                app.root.current = "login"
+                root.manager.transition.direction = "right"
+                
+<FormShares>:
+    name: "shares"
+    on_enter: root.Load()
+
+    BoxLayout: 
+        orientation: "vertical"
+        MDBoxLayout:
+            padding: '2dp'
+            adaptive_height: True
+            spacing: 10
+            pos_hint: {"center_y": 1}
+            MDIconButton:
+                icon: 'arrow-left-bold'
+                on_release: 
+                    app.root.current = "main"
+                    root.manager.transition.direction = "right"
+            MDTextFieldRound:
+                id: txtshares
+                halign: 'center'
+                size_hint: 0.5, 0.5
+                pos_hint: {"center_x": .5, "center_y": 0.5}
+                normal_color: 1, 1, 1, 1
+                color_active: 1, 1, 1, 1
+                multiline: False
+                font_size: "15sp"
+            MDIconButton:
+                icon: 'dots-vertical'
+        ScrollView:
+            MDBoxLayout:
+                id: boxMoreInformation
+                MDLabel:
+                    id: lbInformation
+                    text: "Thông tin chi tiết"
+                    halign: "center"    
+            
+
+<FormMain>:
+    name: "main"
+
+    BoxLayout: 
+        orientation: "vertical"
+    
+        MDBottomNavigation:
+            #startPrice
+            MDBottomNavigationItem:
+                id: cost
+                name: 'screen 1'
+                text: "Bảng Giá"
+                icon: 'align-vertical-bottom'
+                BoxLayout:
+                    orientation: "vertical"
+                    MDBoxLayout:
+                        padding: '2dp'
+                        adaptive_height: True
+                        spacing: 10
+                        pos_hint: {"center_y": 1}
+                        MDIconButton:
+                            icon: 'menu'
+                            on_release: 
+                                root.Welcome()
+                                nav_drawer.set_state()
+                        MDTextFieldRound:
+                            id: txtgroud
+                            hint_text: "Nhập mã nhóm cổ phiếu"
+                            size_hint: 0.5, 0.5
+                            pos_hint: {"center_x": .5, "center_y": 0.5}
+                            normal_color: 1, 1, 1, 1
+                            color_active: 1, 1, 1, 1
+                            multiline: False
+                            font_size: "15sp"
+                        MDIconButton:
+                            icon: 'magnify'
+                            on_release: root.ShowCost()
+                    BoxLayout:
+                        id: boxcost
+                        MDLabel:
+                            id: lbCost
+                            text: "Thông tin nhóm cổ phiếu"
+                            halign: "center"
+            #endPrice
+
+            #startBranch
+            MDBottomNavigationItem:
+                id: branch
+                name: 'screen 2'
+                text: "Ngành"
+                icon: 'buffer'
+                BoxLayout:
+                    orientation: "vertical"
+                    MDBoxLayout:
+                        padding: '2dp'
+                        adaptive_height: True
+                        spacing: 10
+                        pos_hint: {"center_y": 1}
+                        MDIconButton:
+                            icon: 'menu'
+                            on_release: 
+                                root.Welcome()
+                                nav_drawer.set_state()
+                        MDTextFieldRound:
+                            id: txtbranchground
+                            hint_text: "Nhập tên ngành"
+                            size_hint: 0.5, 0.5
+                            pos_hint: {"center_x": .5, "center_y": 0.5}
+                            normal_color: 1, 1, 1, 1
+                            color_active: 1, 1, 1, 1
+                            multiline: False
+                            font_size: "15sp"
+                        MDIconButton:
+                            icon: 'magnify'
+                            on_release: root.ShowBranchCost()
+                    BoxLayout:
+                        id: boxbranch
+                        MDLabel:
+                            id: lbbranch
+                            text: "Thông tin ngành cổ phiếu"
+                            halign: "center"
+            #endBranch
+
+            #startTopStocks
+            MDBottomNavigationItem:
+                id: top
+                name: 'screen 3'
+                text: "Top"
+                icon: 'arrow-top-right-thick'
+                BoxLayout:
+                    orientation: "vertical"
+                    MDBoxLayout:
+                        padding: '2dp'
+                        adaptive_height: True
+                        spacing: 10
+                        pos_hint: {"center_y": 1}
+                        MDIconButton:
+                            icon: 'menu'
+                            on_release: 
+                                root.Welcome()
+                                nav_drawer.set_state()
+                        MDTextFieldRound:
+                            id: txttopground
+                            hint_text: "Cổ phiếu Top"
+                            size_hint: 0.5, 0.5
+                            pos_hint: {"center_x": .5, "center_y": 0.5}
+                            normal_color: 1, 1, 1, 1
+                            color_active: 1, 1, 1, 1
+                            multiline: False
+                            font_size: "15sp"
+                        MDIconButton:
+                            icon: 'magnify'
+                            on_release: root.ShowTopStocks()
+                    BoxLayout:
+                        id: boxTopStock
+                        MDLabel:
+                            id: lbTopStock
+                            text: "Thông tin cổ phiểu top"
+                            halign: "center"
+            #endTopStock
+
+            #startFollowStocks
+            MDBottomNavigationItem:
+                id: follow
+                name: 'screen 4'
+                text: "Theo dõi"
+                icon: 'bell-ring'
+                BoxLayout:
+                    orientation: "vertical"
+                    MDBoxLayout:
+                        padding: '2dp'
+                        adaptive_height: True
+                        spacing: 10
+                        pos_hint: {"center_y": 1}
+                        MDIconButton:
+                            icon: 'menu'
+                            on_release: 
+                                root.Welcome()
+                                nav_drawer.set_state()
+                        MDTextFieldRound:
+                            id: txtfollow
+                            hint_text: "Nhập mã cổ phiếu"
+                            size_hint: 0.5, 0.5
+                            pos_hint: {"center_x": .5, "center_y": 0.5}
+                            normal_color: 1, 1, 1, 1
+                            color_active: 1, 1, 1, 1
+                            multiline: False
+                            font_size: "15sp"
+                        MDIconButton:
+                            icon: 'magnify'
+                            on_release: 
+                    MDBoxLayout:
+                        size_hint_y:.1
+                        MDIconButton:
+                            icon: 'plus-circle-multiple'
+                            pos_hint: {"center_x": .5, "center_y": 0.65}
+                            on_release: root.ShowFollow()
+                        MDLabel:
+                            id: lbFollow
+                            text: "Thêm mã"
+                            pos_hint: {"center_x": .5, "center_y": 0.65}
+                        MDIconButton:
+                            icon: 'format-list-checks'
+                            pos_hint: {"center_x": .5, "center_y": 0.65}
+                            on_release: root.ShowListFollow()
+                        MDLabel:
+                            id: lbListCheckFollow
+                            text: 'Xem danh sách'
+                            pos_hint: {"center_x": .5, "center_y": 0.65}
+                    MDFloatLayout:
+                        size_hint_y:.65
+                        id: boxFollow
+                        MDLabel:
+                            id: lbFollowField
+                            text: "Thông tin cổ phiếu đang theo dõi"
+                            halign: "center"
+            #endFollowStocks
+
+            #startPredictStocks
+            MDBottomNavigationItem:
+                id: predict
+                name: 'screen 5'
+                text: "Dự đoán"
+                icon: 'chart-line'
+                BoxLayout:
+                    orientation: "vertical"
+                    MDBoxLayout:
+                        padding: '2dp'
+                        adaptive_height: True
+                        spacing: 10
+                        pos_hint: {"center_y": 1}
+                        MDIconButton:
+                            icon: 'menu'
+                            on_release: 
+                                root.Welcome()
+                                nav_drawer.set_state()
+                        MDTextFieldRound:
+                            id: txtPredict
+                            hint_text: "Nhập mã cổ phiếu"
+                            size_hint: 0.5, 0.5
+                            pos_hint: {"center_x": .5, "center_y": 0.5}
+                            normal_color: 1, 1, 1, 1
+                            color_active: 1, 1, 1, 1
+                            multiline: False
+                            font_size: "15sp"
+                        MDIconButton:
+                            icon: 'magnify'
+                            on_release: root.ShowPredict()
+                    BoxLayout:
+                        id: box
+                        MDLabel:
+                            id: lbPredict
+                            text: "Dự đoán cổ phiếu"
+                            halign: "center"
+            #endPredictStocks
+    MDNavigationDrawer:
+        id: nav_drawer
+        ContentNavigationDrawer:
+            orientation: 'vertical'
+            padding: "8dp"
+            spacing: "8dp"
+            Image:
+                size_hint: (0.8,0.8)
+                source: "logo.png"
+            MDLabel:
+                text: "Welcome to HTMLBoard"
+                font_style: "Subtitle1"
+                size_hint_y: None
+                height: self.texture_size[1]
+            MDLabel:
+                id: lbwelcome
+                text: "Group 3"
+                size_hint_y: None
+                font_style: "Caption"
+                height: self.texture_size[1]
+            ScrollView:
+                DrawerList:
+                    id: md_list
+                    MDList:
+                        OneLineIconListItem:
+                            text: "Bảng Giá"
+                            on_release: 
+                                cost.on_tab_press()
+                                cost.header.on_press()
+                                nav_drawer.set_state(new_state="close")
+                            IconLeftWidget:
+                                icon: "align-vertical-bottom"
+
+                        OneLineIconListItem:
+                            text: "Ngành"
+                            on_release: 
+                                branch.on_tab_press()
+                                branch.header.on_press()
+                                nav_drawer.set_state(new_state="close")
+                            IconLeftWidget:
+                                icon: "buffer"
+
+                        OneLineIconListItem:
+                            text: "Top"
+                            on_release: 
+                                top.on_tab_press()
+                                top.header.on_press()
+                                nav_drawer.set_state(new_state="close")
+                            IconLeftWidget:
+                                icon: "arrow-top-right-thick"
+                        
+                        OneLineIconListItem:
+                            text: "Theo dõi"
+                            on_release: 
+                                follow.on_tab_press()
+                                follow.header.on_press()
+                                nav_drawer.set_state(new_state="close")
+                            IconLeftWidget:
+                                icon: "bell-ring"
+                        
+                        OneLineIconListItem:
+                            text: "Dự đoán"
+                            on_release: 
+                                predict.on_tab_press()
+                                predict.header.on_press()
+                                nav_drawer.set_state(new_state="close")
+                            IconLeftWidget:
+                                icon: "chart-line"
+
+                        OneLineIconListItem:
+                            text: "Logout"
+                            on_release: 
+                                app.root.current = "login"
+                                root.manager.transition.direction = "left"
+                                nav_drawer.set_state(new_state="close")
+                                cost.on_tab_press()
+                                cost.header.on_press()
+                                root.RefreshFollow()
+                            IconLeftWidget:
+                                icon: "logout"
