@@ -321,14 +321,15 @@ WindowManager:
                             multiline: False
                             font_size: "15sp"
                         MDIconButton:
-                            icon: 'magnify'
+                            icon: 'magnify' 
                             on_release: root.ShowTopStocks()
                     BoxLayout:
                         id: boxTopStock
                         MDLabel:
                             id: lbTopStock
                             text: "Thông tin cổ phiểu top"
-                            halign: "center"
+                            halign: "center" 
+                    
             #endTopStock
 
             #startFollowStocks
@@ -423,6 +424,11 @@ WindowManager:
                         MDLabel:
                             id: lbPredict
                             text: "Dự đoán cổ phiếu"
+                            halign: "center"
+                    BoxLayout:
+                        id: predicttomorrow
+                        MDLabel:
+                            id: tommorrow
                             halign: "center"
             #endPredictStocks
     MDNavigationDrawer:

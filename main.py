@@ -1,6 +1,7 @@
 from kivy.lang import  Builder
 from kivymd.app import MDApp
 import matplotlib
+from matplotlib.widgets import Widget
 matplotlib._png = None
 from kivy.core.window import  Window
 from kivy.uix.screenmanager import ScreenManager, Screen
@@ -22,18 +23,18 @@ import top_stocks as ts
 #garden install matplotlib
 #python -m pip install --upgrade cmake matplotlib mpi4py numpy scipy yt
 #python -m pip install --upgrade matplotlib==3.2.2
+#multithread
 
 username = ""
 password = ""
 company = []
-# company_top = []
 nameshares = ""
 
 class FormLogin(Screen):
     def login(self):
         global username, password, company
-        url_database = "https://htmlboard-99f4a-default-rtdb.firebaseio.com/.json"
-        auth = 'veWmPoP7xOm31xspvgqNlgV4jPYl1rV5c6wUPbgW'
+        url_database = "https://databasehtml-79e92-default-rtdb.firebaseio.com/.json"
+        auth = 'vQVQE85jHdcn5DcHFLlb5pJDeDtxdNUBhFadEA68'
         signupUser = self.ids.login_user.text
         signupPassword = self.ids.login_password.text
         request = requests.get(url_database+'?auth='+auth)
@@ -80,8 +81,8 @@ class FormLogin(Screen):
 
 class FormSignup(Screen):
     def signup(self):
-        url_database = "https://htmlboard-99f4a-default-rtdb.firebaseio.com/.json"
-        auth = 'veWmPoP7xOm31xspvgqNlgV4jPYl1rV5c6wUPbgW'
+        url_database = "https://databasehtml-79e92-default-rtdb.firebaseio.com/.json"
+        auth = 'vQVQE85jHdcn5DcHFLlb5pJDeDtxdNUBhFadEA68'
         signupUser = self.ids.signup_user.text
         signupPassword = self.ids.signup_password.text
         signupConfirmPassword = self.ids.signup_confirmpassword.text
@@ -104,7 +105,7 @@ class FormSignup(Screen):
                 self.manager.transition.direction = "right"  
                 self.dialog = MDDialog(
                     title = "Thông Báo",
-                    text = "[color=#604ad7]Đăng kí tài khoản thành công![/color]",
+                    text = "[color=#604ad7]Đăng ký tài khoản thành công![/color]",
                     pos_hint = {'center_x':.5, 'center_y':.5}
                     )
                 self.dialog.open()    
@@ -136,7 +137,7 @@ class FormSignup(Screen):
                     self.manager.transition.direction = "right"  
                     self.dialog = MDDialog(
                         title = "Thông Báo",
-                        text = "[color=#604ad7]Đăng kí tài khoản thành công![/color]",
+                        text = "[color=#604ad7]Đăng ký tài khoản thành công![/color]",
                         pos_hint = {'center_x':.5, 'center_y':.5}
                         )
                     self.dialog.open()    
@@ -152,16 +153,8 @@ class FormShares(Screen):
         fig_info = FigureCanvasKivyAgg(plt_info.gcf())
         box_info.clear_widgets()
         box_info.add_widget(fig_info)
-    # def graph_display(self):
-    #     global nameshares
-    #     box = self.ids.boxMoreInformation
-    #     plt = Sg.graph()
-    #     fig = FigureCanvasKivyAgg(plt.gcf())
-    #     box.clear_widgets()
-    #     box.add_widget(fig)
 
-
-class FormMain(Screen):
+class FormMain(Screen, Widget):
     def on_row_press(self, table, row):
         global nameshares
         start_index, end_index = row.table.recycle_data[row.index]["range"]
@@ -188,7 +181,7 @@ class FormMain(Screen):
             dt.bind(on_row_press=self.on_row_press)
             boxcost.clear_widgets()
             boxcost.add_widget(dt)
-        self.ids.txtgroud.text = ""
+        #self.ids.txtgroud.text = ""
 
     def ShowBranchCost(self):
         text = str(self.ids.txtbranchground.text)
@@ -206,10 +199,10 @@ class FormMain(Screen):
             dt.bind(on_row_press=self.on_row_press)
             boxcost.clear_widgets()
             boxcost.add_widget(dt)
-        self.ids.txtbranchground.text = ""
+        #self.ids.txtbranchground.text = ""
     
     def ShowFollow(self):
-        url_database = "https://htmlboard-99f4a-default-rtdb.firebaseio.com/.json"
+        url_database = "https://databasehtml-79e92-default-rtdb.firebaseio.com/.json"
         text = str(self.ids.txtfollow.text).upper()
         check = Pre.Check(text)
         if check==False:
@@ -240,12 +233,11 @@ class FormMain(Screen):
                         pos_hint = {'center_x':.5, 'center_y':.5}
                         )
             self.dialog.open()
-            for stock_name in company:
-                boxcost = self.ids.boxFollow
-                dt = Cost.CostFollow(stock_name)
-                dt.bind(on_row_press=self.on_row_press)
-                boxcost.clear_widgets()
-                boxcost.add_widget(dt)
+            boxcost = self.ids.boxFollow
+            dt = Cost.CostFollow(company)
+            dt.bind(on_row_press=self.on_row_press)
+            boxcost.clear_widgets()
+            boxcost.add_widget(dt)
         self.ids.txtfollow.text = ""
 
     def ShowListFollow(self):
@@ -257,12 +249,11 @@ class FormMain(Screen):
                         )
             self.dialog.open()
         else:
-            for stock_name in company:
-                boxcost = self.ids.boxFollow
-                dt = Cost.CostFollow(stock_name)
-                dt.bind(on_row_press=self.on_row_press)
-                boxcost.clear_widgets()
-                boxcost.add_widget(dt)
+            boxcost = self.ids.boxFollow
+            dt = Cost.CostFollow(company)
+            dt.bind(on_row_press=self.on_row_press)
+            boxcost.clear_widgets()
+            boxcost.add_widget(dt)
     
     def ShowTopStocks(self):
         text = str(self.ids.txttopground.text)
@@ -275,8 +266,14 @@ class FormMain(Screen):
             self.dialog.open()
         else:
             if ts.check_group_stock(text):
+                dt, counted = ts.list_top_stocks(text)
+                self.dialog = MDDialog(
+                        title = "Thông Báo",
+                        text = f"[color=#604ad7]Cổ phiểu top : {counted}[/color]",
+                        pos_hint = {'center_x':.5, 'center_y':.5}
+                        )
+                self.dialog.open()
                 boxcost = self.ids.boxTopStock
-                dt = ts.list_top_stocks(text)
                 dt.bind(on_row_press=self.on_row_press)
                 boxcost.clear_widgets()
                 boxcost.add_widget(dt)
@@ -306,13 +303,21 @@ class FormMain(Screen):
                         )
             self.dialog.open()  
         else:
-            box = self.ids.box
-            plt = Pre.Predict(text)
+            predicted_val, plt = Pre.Predict(text)
+            self.dialog = MDDialog(
+                        title = "Dự đoán",
+                        text = f"[color=#604ad7]Giá trị cổ phiếu {text} ngày mai là {predicted_val}[/color]",
+                        pos_hint = {'center_x':.5, 'center_y':.5}
+                        )
+            self.dialog.open()
+            pre = str(predicted_val)
+            txt = self.ids.tommorrow
+            txt.text = pre
+            box_predict = self.ids.box
             fig = FigureCanvasKivyAgg(plt.gcf())
-            box.clear_widgets()
-            box.add_widget(fig)
-        self.ids.txtPredict.text = ""
-
+            box_predict.clear_widgets()
+            box_predict.add_widget(fig)
+        #self.ids.txtPredict.text = ""
 
 class ContentNavigationDrawer(BoxLayout):
     pass
@@ -323,8 +328,8 @@ class DrawerList(ThemableBehavior, MDList):
 class WindowManager(ScreenManager):
     pass
 
-class HTMLBoard(MDApp):
+class MainApp(MDApp):
     def build(self):
         Window.size = (350,600)
 
-HTMLBoard().run()
+MainApp().run()

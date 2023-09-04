@@ -2,35 +2,52 @@ from kivy.metrics import dp
 from kivymd.uix.datatables import MDDataTable
 import Analysis as an
 
-
 group_shares = {'Dầu khí': ['BSR', 'OIL', 'PEQ', 'PLX', 'POS', 'PVB', 'PVC', 'PVD', 'PVE',],
                 'Hóa chất': ['AAA', 'APP', 'BFC', 'BRC', 'BRR', 'BT1', 'CPC', 'CSV', 'DAG', 'DCM',],
-                'Tài nguyên cơ bản': ['ACG', 'ACM', 'ALV', 'AMC', 'ATG', 'BCA', 'BCB', 'BKC', 'BMC', 'BMJ',],
-                'Xây dựng và vật liệu': ['ACC', 'ACE', 'ACS', 'ADP', 'AMS', 'ATB', 'B82', 'BAX', 'BCC', 'BCE',],
-                'Hàng và dịch vụ công nghiệp': ['ABR', 'ACV', 'AME', 'APH', 'APL', 'ARM', 'ASG', 'BAL', 'BBH', 'BBS',],
-                'Ô tô và phụ tùng': ['CMC', 'CSM', 'CTF', 'DRC', 'GGG', 'HAX', 'HHS', 'HTL', 'SRC',],
-                'Thực phẩm và đồ uống': ['AAM', 'ABT', 'ACL', 'AGF', 'AGM', 'ANT', 'ANV', 'APF', 'APT', 'ASM',],
-                'Hàng cá nhân và gia dụng': ['A32', 'AAT', 'ADS', 'AG1', 'ASA', 'BBT', 'BDG', 'BEL', 'BKG', 'BMG',],
-                'Y tế': ['AGB', 'AMP', 'AMV', 'APC', 'BCP', 'BIO', 'CDP', 'CNC', 'DAN', 'DBD',],
-                'Bán lẻ': ['ABS', 'AFX', 'AGX', 'AST', 'BSC', 'BTT', 'CEN', 'CGL', 'CMV', 'COM',],
-                'Truyền thông': ['ADC', 'ADG', 'ALT', 'BDB', 'BED', 'BST', 'CAB', 'DAD', 'DAE', 'DST',],
-                'Du lịch và giải trí': ['ATS', 'BCV', 'BLN', 'BSG', 'BTV', 'CTC', 'DAH', 'DAR', 'DBH', 'DLD',],
-                'Viễn thông': ['ABC', 'FOX', 'MFS', 'PAI', 'PIA', 'PTP', 'TTN', 'VGI',],
-                'Điện, nước và xăng dầu khí đốt': ['ASP', 'AVC', 'BDW', 'BGW', 'BHA', 'BLW', 'BMF', 'BNW', 'BSA', 'BTP',],
-                'Ngân hàng': ['ABB', 'ACB', 'BAB', 'BID', 'BVB', 'CTG', 'EIB', 'HDB','KLB', 'LPB',],
-                'Bảo hiểm': ['ABI', 'AIC', 'BIC', 'BLI', 'BMI', 'BVH', 'MIG', 'PGI', 'PRE', 'PTI',],
-                'Bất động sản': ['AAV', 'AGG', 'AMD', 'API', 'BCM', 'BIG', 'BII', 'BVL', 'C21', 'CCI',],
-                'Dịch vụ tài chính': ['AAS', 'AGR', 'APG', 'APS', 'ART', 'BCG', 'BMS', 'BSI', 'BVS', 'CSI',],
-                'Công nghệ thông tin': ['CKV', 'CMG', 'CMT', 'ELC', 'FPT', 'HIG', 'HPT', 'ICT', 'ITD', 'KST',],
+                'Tài nguyên cơ bản': ['ACM', 'AMC', 'BKC', 'BMC', 'C32', 'DHA', 'DHM', 'HGM', 'HLC',],
+                'Xây dựng và vật liệu': ['ACC', 'BCC', 'BTS', 'CLH', 'CRC', 'CVT', 'DTL',],
+                'Hàng và dịch vụ công nghiệp': ['VTC', 'VIE', 'TPH', 'STC', 'SMN', 'SGD', 'SED', 'PIA', 'ONE',],
+                'Ô tô và phụ tùng': ['CAG', 'CDN', 'CLL', 'DL1', 'DS3', 'DVP',],
+                'Thực phẩm và đồ uống': ['AGM', 'BBC', 'BHN','CAN', 'DAT', 'DBC', 'HAD', 'HHC','VNG',],
+                'Hàng cá nhân và gia dụng': ['ADS', 'EVE', 'GDT', 'GIL', 'GMC', 'KMR', 'MHL', 'MSH', 'SAV', 'SHA',],
+                'Y tế': ['DCL', 'DHG', 'DHT', 'DMC', 'DP3', 'FIT', 'IMP', 'LDP','DBD',],
+                'Bán lẻ': ['AMD', 'AST', 'CCI', 'CIA', 'CTC', 'CTF', 'FRT', 'HAX', 'CMV', 'COM',],
+                'Du lịch và giải trí': ['ATS', 'DAH', 'DSN', 'HOT', 'NVT', 'OCH', 'PDC', 'SDA', 'SGH',],
+                'Viễn thông': ['IBC', 'INC', 'KPF', 'PPE', 'SDA', 'SDC', 'TV2', 'TV3',],
+                'Điện, nước và xăng dầu khí đốt': ['CAV', 'DHP', 'DQC', 'EMC', 'GEX', 'KSD', 'MBG', 'PAC', 'PHN',],
+                'Ngân hàng': ['NVB', 'ACB', 'BAB', 'BID', 'CTG', 'EIB', 'HDB','VIB', 'SHB',],
+                'Bảo hiểm': ['BIC', 'BVH', 'BMI', 'BVH', 'MIG', 'PGI', 'PTI',],
+                'Bất động sản': ['ANV','API','BAX','BCE','BCM','CCL','CDC','CEO','CIG',],
+                'Dịch vụ tài chính': ['TCH' , 'AGR', 'APG', 'ART', 'BCG', 'ACB', 'FTS', 'CTS', 'BVH',],
+                'Công nghệ thông tin': ['ADC', 'BDB', 'BST', 'FPT', 'DST', 'GLT', 'HEV', 'KST',],
+                'dầu khí': ['BSR', 'OIL', 'PEQ', 'PLX', 'POS', 'PVB', 'PVC', 'PVD', 'PVE',],
+                'hóa chất': ['AAA', 'APP', 'BFC', 'BRC', 'BRR', 'BT1', 'CPC', 'CSV', 'DAG', 'DCM',],
+                'tài nguyên cơ bản': ['ACM', 'AMC', 'BKC', 'BMC', 'C32', 'DHA', 'DHM', 'HGM', 'HLC',],
+                'xây dựng và vật liệu': ['ACC', 'BCC', 'BTS', 'CLH', 'CRC', 'CVT', 'DTL',],
+                'hàng và dịch vụ công nghiệp': ['VTC', 'VIE', 'TPH', 'STC', 'SMN', 'SGD', 'SED', 'PIA', 'ONE',],
+                'ô tô và phụ tùng': ['CAG', 'CDN', 'CLL', 'DL1', 'DS3', 'DVP',],
+                'thực phẩm và đồ uống': ['AGM', 'BBC', 'BHN','CAN', 'DAT', 'DBC', 'HAD', 'HHC',],
+                'hàng cá nhân và gia dụng': ['ADS', 'EVE', 'GDT', 'GIL', 'GMC', 'KMR', 'MHL', 'MSH', 'SAV', 'SHA',],
+                'y tế': ['DCL', 'DHG', 'DHT', 'DMC', 'DP3', 'FIT', 'IMP', 'LDP','DBD',],
+                'bán lẻ': ['AMD', 'AST', 'CCI', 'CIA', 'CTC', 'CTF', 'FRT', 'HAX', 'CMV', 'COM',],
+                'du lịch và giải trí': ['ATS', 'DAH', 'DSN', 'HOT', 'NVT', 'OCH', 'PDC', 'SDA', 'SGH',],
+                'viễn thông': ['IBC', 'INC', 'KPF', 'PPE', 'SDA', 'SDC', 'TV2', 'TV3',],
+                'điện, nước và xăng dầu khí đốt': ['CAV', 'DHP', 'DQC', 'EMC', 'GEX', 'KSD', 'MBG', 'PAC', 'PHN',],
+                'ngân hàng': ['NVB', 'ACB', 'BAB', 'BID', 'CTG', 'EIB', 'HDB','VIB', 'SHB',],
+                'bảo hiểm': ['BIC', 'BVH', 'BMI', 'BVH', 'MIG', 'PGI', 'PTI',],
+                'bất động sản': ['ANV','API','BAX','BCE','BCM','CCL','CDC','CEO','CIG',],
+                'dịch vụ tài chính': ['TCH' , 'AGR', 'APG', 'ART', 'BCG', 'ACB', 'FTS', 'CTS', 'BVH',],
+                'công nghệ thông tin': ['ADC', 'BDB', 'BST', 'FPT', 'DST', 'GLT', 'HEV', 'KST',],
                 }
+
 lstTempListDataRow=[]
-dataOfRow=[]
 tempData=[]
 def check(text):
     if text in group_shares.keys():
         return True
     return False
 def branchCost(text):
+    dataOfRow=[]
     for company in group_shares[text]:
         tempData = an.inforCost(company)
         lstTempListDataRow.append(company)
@@ -69,13 +86,9 @@ def branchCost(text):
     return data_tables
 
 def colorChecking(lst):
-    if (lst[2] > 0):
-        return "#02a002"  # luc
-    if (lst[2] == 0):
-        return "#ffc800"  # vang
-    # if (lst[0] > 0) :
-    #      return "#006eff" #lam
-    # if (lst[0] > 0) :
-    #     return "b400ff" #tim
-    if (lst[2] < 0):
-        return "#ff0000"  # do
+    if (lst[2] > 0) :
+        return "#02a002" #green
+    elif(lst[2] == 0) :
+        return "#ffc800" #yelllow
+    else:
+        return "#ff0000" #red
